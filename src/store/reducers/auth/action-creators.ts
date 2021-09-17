@@ -1,6 +1,7 @@
 import axios from "axios";
 import authReducer from ".";
 import { AppDispatch } from "../..";
+import UserService from "../../../api/UserService";
 import { IUser, SetAuthAction, SetUserAction } from "./types";
 
 export const AuthActionCreators = {
@@ -8,13 +9,14 @@ export const AuthActionCreators = {
     setIsAuth: (auth: boolean): SetAuthAction => ({ type: "SET_AUTH", payload: auth }),
     login: (username: string, password: string) => async (dispatch: AppDispatch) => {
         try {
-            const response = await axios.get<IUser[]>('./users.json')
+            // const response = await axios.get<IUser[]>('./users.json')
+            const response = await UserService.getUsers()
             const mockUser = response.data.find(user => user.username === username && user.password === password)
             if (mockUser) {
                 localStorage.setItem('auth', 'true');
                 localStorage.setItem('username', mockUser.username);
-                dispatch(AuthActionCreators.setIsAuth(true))
                 dispatch(AuthActionCreators.setUser(mockUser))
+                dispatch(AuthActionCreators.setIsAuth(true))
             } else {
                 console.log('username or password do not match')
             }

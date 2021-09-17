@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, Input, Button, Checkbox, Card } from 'antd';
+import { Form, Input, Button, Checkbox, Card, Row } from 'antd';
 import { useDispatch } from 'react-redux';
 import { AuthActionCreators } from '../store/reducers/auth/action-creators';
 
@@ -36,16 +36,15 @@ export default function FormTest() {
                 >
                     <Input.Password value={password} onChange={(e) => setPassword(e.target.value)} />
                 </Form.Item>
-
-                <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-                    <Checkbox>Remember me</Checkbox>
-                </Form.Item>
-
                 <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                     <Button type="primary" htmlType="submit">
-                        Submit
+                        Login
                     </Button>
                 </Form.Item>
+
+                {/* <Row justify='end'>
+
+                </Row> */}
             </Form>
         </Card>
     )
